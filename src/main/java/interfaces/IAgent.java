@@ -2,6 +2,11 @@ package interfaces;
 
 /**
  * Represents an agent in the information cascade.
+ *
+ * 3 types of agent, should be classes:
+ *  1. Uses only own information
+ *  2. Uses information cascade
+ *  3. Uses information cascade and maximum expected utility
  */
 public interface IAgent {
     public double getAccuracy();    // Returns a value between 0 and 1 representing how accurate this agent's
