@@ -10,6 +10,5 @@ public interface IAgent {
     public double getProbB();       // Returns this agent's probability of waterhole B
     public double getProbC();       // Returns this agent's probability of waterhole C
 
-    public IDecision decide(int numA, int numB, int numC);  // Make a decision, taking into account how many agents
-                                                            // have chosen each waterhole
+    public IDecision decide(IWorld world);  // Make a decision, taking into account priors of the world
 }
