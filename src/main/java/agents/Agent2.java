@@ -63,7 +63,8 @@ public class Agent2 implements  IAgent{
             probabilityC = world.priorC();
         }
 
-        IDecision cascadeDecision
+        IDecision cascadeDecision;
+        return null;    // Added this to make it compile; this method is not finished.
 
     }
 }

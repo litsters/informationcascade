@@ -1,5 +1,6 @@
 package world;
 
+import interfaces.IDecision;
 import interfaces.IWorld;
 import interfaces.Waterhole;
 
@@ -61,18 +62,30 @@ public class World implements IWorld {
     }
 
     @Override
+    public void updateWorld(IDecision decision) {
+        switch(decision.getChoice()){
+            case A:
+                incA();
+                break;
+            case B:
+                incB();
+                break;
+            case C:
+                incC();
+                break;
+        }
+    }
+
     public void incA() {
         ++numA;
         // Update priorA
     }
 
-    @Override
     public void incB() {
         ++numB;
         // Update priorB
     }
 
-    @Override
     public void incC() {
         ++numC;
         // Update priorC

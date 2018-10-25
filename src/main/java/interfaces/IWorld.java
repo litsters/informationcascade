@@ -9,7 +9,9 @@ public interface IWorld {
     public double priorB();                 // Returns the number of people who have chosen waterhole B
     public double priorC();                 // Returns the number of people who have chosen waterhole C
 
-    public void incA();                     // Increments the number of people who have chosen waterhole A
-    public void incB();                     // Increments the number of people who have chosen waterhole B
-    public void incC();                     // Increments the number of people who have chosen waterhole C
+    public void updateWorld(IDecision decision);    // Updates the number of people who have gone to each waterhole
+
+//    public void incA();                     // Increments the number of people who have chosen waterhole A
+//    public void incB();                     // Increments the number of people who have chosen waterhole B
+//    public void incC();                     // Increments the number of people who have chosen waterhole C
 }
