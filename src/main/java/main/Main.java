@@ -1,6 +1,7 @@
 package main;
 
 import experiment.Experiment;
+import interfaces.AccuracyGroup;
 import interfaces.IAgent;
 import interfaces.IDecision;
 import interfaces.Waterhole;
@@ -11,19 +12,24 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Runs an instance of the experiment, and outputs the results. Takes 2 arguments:
+ * Runs an instance of the experiment, and outputs the results. Takes 3 arguments:
  *  1.  The type of agent to use. Options are "one", "two", or "three", referring to the agent number.
  *  2.  The number of agents to use. Must be greater than 0.
+ *  3.  The accuracy group for the run. Must be "high", "mixed", or "poor".
  */
 public class Main {
     public static final String AGENT_ONE = "one";
     public static final String AGENT_TWO = "two";
     public static final String AGENT_THREE = "three";
 
+    public static final String ACC_HIGH = "high";
+    public static final String ACC_MIXED = "mixed";
+    public static final String ACC_POOR = "poor";
+
     public static void main(String[] args){
         // Check usage
-        if(args.length < 2){
-            System.err.println("Usage: <agent_type> <number_of_agents>");
+        if(args.length < 3){
+            System.err.println("Usage: <agent_type> <number_of_agents> <accuracy_rating>");
             System.exit(1);
         }
 
@@ -38,11 +44,18 @@ public class Main {
             System.exit(1);
         }
 
+        // Get accuracy rating for the run
+        AccuracyGroup accuracy = interpretAccuracy(args[2]);
+        if(accuracy == null){
+            System.err.println("Usage: accuracy must be \"high\", \"mixed\", or \"poor\"");
+            System.exit(1);
+        }
+
         // Generate agents
-        AgentFactory factory = new AgentFactory(world);
+        AgentFactory factory = new AgentFactory(world, accuracy);
         List<IAgent> agents = new ArrayList<>();
         for(int i = 0; i < numAgents; ++i){
-            IAgent agent = factory.generateAgent(args[0]);  // TODO: Figure out how to assign accuracy to agent
+            IAgent agent = factory.generateAgent(args[0]);
             agents.add(agent);
         }
 
@@ -59,6 +72,7 @@ public class Main {
         // Report results
         System.out.println("Agent type:      " + args[0]);
         System.out.println("Num agents:      " + args[1]);
+        System.out.println("Accuracy group:  " + args[2]);
         System.out.println("Num correct:     " + experiment.getNumCorrect());
         System.out.println("Num wrong:       " + experiment.getNumWrong());
         System.out.println("Num cascades:    " + experiment.getNumCascades());
@@ -74,6 +88,15 @@ public class Main {
             default:
                 System.err.println("Error in choosing waterhole; choice = " + choice);
                 return Waterhole.A;
+        }
+    }
+
+    private static AccuracyGroup interpretAccuracy(String input){
+        switch(input){
+            case ACC_HIGH: return AccuracyGroup.ACCURATE;
+            case ACC_MIXED: return AccuracyGroup.MIXED;
+            case ACC_POOR: return AccuracyGroup.POOR;
+            default: return null;
         }
     }
 }
