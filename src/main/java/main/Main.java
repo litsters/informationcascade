@@ -65,6 +65,10 @@ public class Main {
         // Make decisions
         for(IAgent agent : agents){
             IDecision decision = agent.decide(world);
+            if(decision == null){
+                System.err.println("Received null decision");
+                System.exit(1);
+            }
             world.updateWorld(decision);
             experiment.addDecision(decision);
         }

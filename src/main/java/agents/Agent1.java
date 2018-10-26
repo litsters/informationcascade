@@ -6,6 +6,9 @@ import interfaces.IDecision;
 import interfaces.IWorld;
 import interfaces.Waterhole;
 
+import java.util.Arrays;
+import java.util.Random;
+
 /**
  * Uses only its highest prior probability to make decisions.
  */
@@ -14,6 +17,7 @@ public class Agent1 implements IAgent {
     private double priorA;
     private double priorB;
     private double priorC;
+    private Random generator;
 
     public Agent1(double accuracy, Waterhole correct){
         this.accuracy = accuracy;
@@ -35,6 +39,7 @@ public class Agent1 implements IAgent {
                 priorB = priorOther2;
                 priorC = accuracy;
         }
+        this.generator = new Random();
     }
 
 
@@ -60,25 +65,22 @@ public class Agent1 implements IAgent {
 
     @Override
     public IDecision decide(IWorld world) {
-        Waterhole choice = highestPrior();
+        // Choose a waterhole
+        Waterhole choice = selectWaterhole();
 
-        return new Decision(choice, false);
+        if(choice == null) return null;
+        else return new Decision(choice, false);
     }
 
-    private Waterhole highestPrior(){
-        Waterhole choice = Waterhole.A;
-        double highestPrior = 0;
-        if(priorA > highestPrior){
-            highestPrior = priorA;
-        }
-        if(priorB > highestPrior){
-            choice = Waterhole.B;
-            highestPrior = priorB;
-        }
-        if(priorC > highestPrior){
-            choice = Waterhole.C;
-        }
+    private Waterhole selectWaterhole(){
+        if(isWaterhole(priorA)) return Waterhole.A;
+        else if(isWaterhole(priorB)) return Waterhole.B;
+        else return Waterhole.C;
+    }
 
-        return choice;
+    private boolean isWaterhole(double prior){
+        int bound = (int)(prior * 100);
+        int rand = generator.nextInt(100) + 1;
+        return rand < bound;
     }
 }
