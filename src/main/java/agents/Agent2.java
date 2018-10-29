@@ -10,12 +10,19 @@ import interfaces.Waterhole;
  * Created by julio on 10/17/18.
  */
 
-public class Agent2 implements  IAgent{
+public class Agent2 extends Agent1{
 
     private double accuracy = 1.0;
     private double probabilityA = 0.0;
     private double probabilityB = 0.0;
     private double probabilityC = 0.0;
+    private double priorA = 0.0;
+    private double priorB = 0.0;
+    private double priorC = 0.0;
+
+    public Agent2(double accuracy, Waterhole correct){
+        super(accuracy, correct);
+    }
 
     // Returns a value between 0 and 1 representing how accurate this agent's
     public double getAccuracy(){
@@ -36,6 +43,11 @@ public class Agent2 implements  IAgent{
         return probabilityC;
     }
 
+    private void calculatePrior(){
+        //Bayes Rule
+
+    }
+
     // Make a decision, taking into account priors of the world`
     public IDecision decide(IWorld world){
         Double highestProbability = Math.max(Math.max(probabilityA,probabilityB),probabilityC);
@@ -53,18 +65,18 @@ public class Agent2 implements  IAgent{
 
         IDecision selfDecision = new Decision(waterhole,false);
 
-//        if(world.priorA() != -1){
-//            probabilityA = world.priorA();
+//        if(this.priorA != -1){
+//            probabilityA = priorA
 //        }
-//        if(world.priorB() != -1){
-//            probabilityB = world.priorB();
+//        if(this.priorB != -1){
+//            probabilityB = priorB
 //        }
-//        if(world.priorC() != -1){
-//            probabilityC = world.priorC();
+//        if(this.priorC != -1){
+//            probabilityC = priorC
 //        }
 
-        IDecision cascadeDecision;
-        return null;    // Added this to make it compile; this method is not finished.
+        IDecision cascadeDecision = null;
+        return cascadeDecision;    // Added this to make it compile; this method is not finished.
 
     }
 }
