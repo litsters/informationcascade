@@ -63,13 +63,17 @@ public class Agent1 implements IAgent {
         return priorC;
     }
 
-    @Override
-    public IDecision decide(IWorld world) {
+    protected IDecision agent1Decide(){
         // Choose a waterhole
         Waterhole choice = selectWaterhole();
 
         if(choice == null) return null;
         else return new Decision(choice, false);
+    }
+
+    @Override
+    public IDecision decide(IWorld world) {
+        return agent1Decide();
     }
 
     private Waterhole selectWaterhole(){
