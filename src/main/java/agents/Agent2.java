@@ -53,15 +53,15 @@ public class Agent2 implements  IAgent{
 
         IDecision selfDecision = new Decision(waterhole,false);
 
-        if(world.priorA() != -1){
-            probabilityA = world.priorA();
-        }
-        if(world.priorB() != -1){
-            probabilityB = world.priorB();
-        }
-        if(world.priorC() != -1){
-            probabilityC = world.priorC();
-        }
+//        if(world.priorA() != -1){
+//            probabilityA = world.priorA();
+//        }
+//        if(world.priorB() != -1){
+//            probabilityB = world.priorB();
+//        }
+//        if(world.priorC() != -1){
+//            probabilityC = world.priorC();
+//        }
 
         IDecision cascadeDecision;
         return null;    // Added this to make it compile; this method is not finished.
