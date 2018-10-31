@@ -12,10 +12,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Runs an instance of the experiment, and outputs the results. Takes 3 arguments:
+ * Runs an instance of the experiment, and outputs the results. Takes 4 arguments:
  *  1.  The type of agent to use. Options are "one", "two", or "three", referring to the agent number.
  *  2.  The number of agents to use. Must be greater than 0.
  *  3.  The accuracy group for the run. Must be "high", "mixed", or "poor".
+ *  4.  The number of runs for the experiment.
  */
 public class Main {
     public static final String AGENT_ONE = "one";
@@ -28,14 +29,10 @@ public class Main {
 
     public static void main(String[] args){
         // Check usage
-        if(args.length < 3){
-            System.err.println("Usage: <agent_type> <number_of_agents> <accuracy_rating>");
+        if(args.length < 4){
+            System.err.println("Usage: <agent_type> <number_of_agents> <accuracy_rating> <number_of_runs>");
             System.exit(1);
         }
-
-        // Generate world
-        Waterhole correct = chooseWaterhole();  // Choose which waterhole is correct
-        World world = new World(correct);
 
         // Get number of agents
         int numAgents = Integer.parseInt(args[1]);
@@ -51,36 +48,47 @@ public class Main {
             System.exit(1);
         }
 
-        // Generate agents
-        AgentFactory factory = new AgentFactory(world, accuracy);
-        List<IAgent> agents = new ArrayList<>();
-        for(int i = 0; i < numAgents; ++i){
-            IAgent agent = factory.generateAgent(args[0]);
-            agents.add(agent);
-        }
+        // Get number of runs
+        int numRuns = Integer.parseInt(args[3]);
+        for(int run = 0; run < numRuns; ++run){
+            // Generate world
+            Waterhole correct = chooseWaterhole();  // Choose which waterhole is correct
+            World world = new World(correct);
 
-        // Set up experiment
-        Experiment experiment = new Experiment(correct);
-
-        // Make decisions
-        for(IAgent agent : agents){
-            IDecision decision = agent.decide(world);
-            if(decision == null){
-                System.err.println("Received null decision");
-                System.exit(1);
+            // Generate agents
+            AgentFactory factory = new AgentFactory(world, accuracy);
+            List<IAgent> agents = new ArrayList<>();
+            for(int i = 0; i < numAgents; ++i){
+                IAgent agent = factory.generateAgent(args[0]);
+                agents.add(agent);
             }
-            world.updateWorld(decision);
-            experiment.addDecision(decision);
-        }
 
-        // Report results
-        System.out.println("Agent type:      " + args[0]);
-        System.out.println("Num agents:      " + args[1]);
-        System.out.println("Accuracy group:  " + args[2]);
-        System.out.println("Num correct:     " + experiment.getNumCorrect());
-        System.out.println("Num wrong:       " + experiment.getNumWrong());
-        System.out.println("Num cascades:    " + experiment.getNumCascades());
-        System.out.println("Longest cascade: " + experiment.longestCascade());
+            // Set up experiment
+            Experiment experiment = new Experiment(correct);
+
+            // Make decisions
+            for(IAgent agent : agents){
+                IDecision decision = agent.decide(world);
+                if(decision == null){
+                    System.err.println("Received null decision");
+                    System.exit(1);
+                }
+                world.updateWorld(decision);
+                experiment.addDecision(decision);
+            }
+
+            // Report results
+            System.out.println("**********************************");
+            System.out.println("RUN #" + (run+1));
+            System.out.println("**********************************");
+            System.out.println("Agent type:      " + args[0]);
+            System.out.println("Num agents:      " + args[1]);
+            System.out.println("Accuracy group:  " + args[2]);
+            System.out.println("Num correct:     " + experiment.getNumCorrect());
+            System.out.println("Num wrong:       " + experiment.getNumWrong());
+            System.out.println("Num cascades:    " + experiment.getNumCascades());
+            System.out.println("Longest cascade: " + experiment.longestCascade());
+        }
     }
 
     private static Waterhole chooseWaterhole(){
