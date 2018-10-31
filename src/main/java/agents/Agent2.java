@@ -48,8 +48,11 @@ public class Agent2 extends Agent1{
 
     }
 
-    // Make a decision, taking into account priors of the world`
-    public IDecision decide(IWorld world){
+    private void updatePriors(int numA, int numB, int numC){
+        // TODO: Make this update priors based on how many have chosen each waterhole
+    }
+
+    private Waterhole chooseHighestPrior(){
         Double highestProbability = Math.max(Math.max(probabilityA,probabilityB),probabilityC);
         Waterhole waterhole = null;
 
@@ -63,22 +66,20 @@ public class Agent2 extends Agent1{
             waterhole = Waterhole.C;
         }
 
-        IDecision selfDecision = new Decision(waterhole,false);
+        return waterhole;
+    }
 
+    // Make a decision, taking into account priors of the world`
+    public IDecision decide(IWorld world){
+        // Make initial decision
+        Waterhole initial = this.chooseHighestPrior();
 
+        // Update priors
+        this.updatePriors(world.numA(), world.numB(), world.numC());
 
-//        if(this.priorA != -1){
-//            probabilityA = priorA
-//        }
-//        if(this.priorB != -1){
-//            probabilityB = priorB
-//        }
-//        if(this.priorC != -1){
-//            probabilityC = priorC
-//        }
-
-        IDecision cascadeDecision = null;
-        return cascadeDecision;    // Added this to make it compile; this method is not finished.
-
+        // Choose highest prior after updating priors
+        Waterhole second = this.chooseHighestPrior();
+        if(initial == second) return new Decision(second, false);
+        else return new Decision(second, true);
     }
 }
