@@ -15,11 +15,13 @@ public class AgentFactory {
     private IWorld world;
     private AccuracyGroup accuracyGroup;
     private Random generator;
+    private Double signal;
 
-    public AgentFactory(IWorld world, AccuracyGroup accuracyGroup){
+    public AgentFactory(IWorld world, AccuracyGroup accuracyGroup, Double signal){
         this.accuracyGroup = accuracyGroup;
         this.world = world;
         this.generator = new Random();
+        this.signal = signal;
     }
 
     public IAgent generateAgent(String type){
@@ -30,7 +32,7 @@ public class AgentFactory {
             case Main.AGENT_ONE:
                 return new Agent1(accuracy, world.correctWaterhole());
             case Main.AGENT_TWO:
-                return new Agent2(accuracy, world.correctWaterhole());
+                return new Agent2(accuracy, world.correctWaterhole(), signal);
             case Main.AGENT_THREE:
             default:
                 System.err.println("Unrecognized agent type: " + type);

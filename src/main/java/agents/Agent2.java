@@ -11,10 +11,11 @@ import interfaces.Waterhole;
 
 public class Agent2 extends Agent1{
 
-    private Double signal = 0.7;
+    private Double signal;
 
-    public Agent2(double accuracy, Waterhole correct){
+    public Agent2(double accuracy, Waterhole correct, Double signal){
         super(accuracy, correct);
+        this.signal = signal;
     }
 
     private void updatePriors(int numA, int numB, int numC, Waterhole waterhole){
