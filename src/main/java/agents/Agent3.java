@@ -22,7 +22,7 @@ public class Agent3 extends Agent2 {
     }
 
     private Waterhole getMaximumExpectedUtility() {
-        double max_utility = 0;
+        double max_utility = Double.NEGATIVE_INFINITY;
         int max_waterhole = -1;
 
         for (int waterhole = 0; waterhole < 3; waterhole++) {
