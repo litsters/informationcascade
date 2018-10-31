@@ -1,7 +1,6 @@
 package agents;
 
 import decision.Decision;
-import interfaces.IAgent;
 import interfaces.IDecision;
 import interfaces.IWorld;
 import interfaces.Waterhole;
@@ -42,6 +41,7 @@ public class Agent2 extends Agent1{
     }
 
     // Make a decision, taking into account priors of the world
+    @Override
     public IDecision decide(IWorld world){
         // If this is the first agent to decide, choose like an Agent1
         if(world.getDecisions().size() == 0) return agent1Decide();
