@@ -30,7 +30,7 @@ public class AgentFactory {
             case Main.AGENT_ONE:
                 return new Agent1(accuracy, world.correctWaterhole());
             case Main.AGENT_TWO:
-                return new Agent2();
+                return new Agent2(accuracy, world.correctWaterhole());
             case Main.AGENT_THREE:
             default:
                 System.err.println("Unrecognized agent type: " + type);
