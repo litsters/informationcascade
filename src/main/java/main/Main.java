@@ -17,6 +17,7 @@ import java.util.Random;
  *  2.  The number of agents to use. Must be greater than 0.
  *  3.  The accuracy group for the run. Must be "high", "mixed", or "poor".
  *  4.  The number of runs for the experiment.
+ *  5.  The signal confidence for the experiment. Must be between 0 and 1.
  */
 public class Main {
     public static final String AGENT_ONE = "one";
