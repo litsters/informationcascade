@@ -46,8 +46,8 @@ public class Agent2 extends Agent1{
         }
     }
 
-    private Waterhole chooseHighestPrior(){
-        Double highestProbability = Math.max(Math.max(getProbA(),getProbB()),getProbC());
+    protected Waterhole chooseHighestPrior(){
+        Double highestProbability = getHighestProbability();
         Waterhole waterhole = null;
 
         if(Double.compare(highestProbability,getProbA()) == 0){
@@ -61,6 +61,10 @@ public class Agent2 extends Agent1{
         }
 
         return waterhole;
+    }
+
+    protected Double getHighestProbability() {
+        return Math.max(Math.max(getProbA(),getProbB()),getProbC());
     }
 
     // Make a decision, taking into account priors of the world
