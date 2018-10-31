@@ -23,7 +23,7 @@ public class Experiments {
     }
 
     public void exportResults() {
-        //exportCascades();
+        exportCascades();
     }
 
     public void exportCascades() {
@@ -41,7 +41,7 @@ public class Experiments {
         }
         sb.append("\n");
 
-        for (i = 0; i < longestExperiment - 1; i++) {
+        for (i = 0; i < longestExperiment; i++) {
             sb.append(i);
 
             for (IExperiment experiment : this.collection) {

@@ -2,6 +2,7 @@ package main;
 
 import agents.Agent1;
 import agents.Agent2;
+import agents.Agent3;
 import interfaces.AccuracyGroup;
 import interfaces.IAgent;
 import interfaces.IWorld;
@@ -34,6 +35,7 @@ public class AgentFactory {
             case Main.AGENT_TWO:
                 return new Agent2(accuracy, world.correctWaterhole(), signal);
             case Main.AGENT_THREE:
+                return new Agent3(accuracy, world.correctWaterhole(), signal);
             default:
                 System.err.println("Unrecognized agent type: " + type);
                 return null;

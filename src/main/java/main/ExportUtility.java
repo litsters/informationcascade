@@ -11,50 +11,29 @@ import java.util.Date;
 
 public class ExportUtility {
 
-    public static void Export(String fileName, String fileContents) {
-        throw new NotImplementedException();
-
-        /*fileName = System.getProperty("user.dir") + "/" + fileName;
-        BufferedWriter bufferedWriter = null;
-        FileWriter fileWriter = null;
-        File file = new File(fileName);
-
-        try {
-            file.createNewFile();
-        }
-        catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
+    public static void Export(String fileName, String fileContents)
+    {
         try {
 
-            fileWriter = new FileWriter(file);
-            bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(fileContents);
+            File file = new File(fileName);
 
-            System.out.println("Done");
+            if (file.createNewFile()){
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-        } catch (IOException e) {
+                    bw.write(fileContents);
 
-            e.printStackTrace();
+                } catch (IOException e) {
 
-        } finally {
+                    e.printStackTrace();
 
-            try {
-
-                if (bufferedWriter != null)
-                    bufferedWriter.close();
-
-                if (fileWriter != null)
-                    fileWriter.close();
-
-            } catch (IOException ex) {
-
-                ex.printStackTrace();
-
+                }
+            }else{
+                System.out.println("File already exists.");
             }
 
-        }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String GenerateFileName(String name, String extension) {
