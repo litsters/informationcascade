@@ -65,6 +65,8 @@ public class Agent2 extends Agent1{
 
         IDecision selfDecision = new Decision(waterhole,false);
 
+
+
 //        if(this.priorA != -1){
 //            probabilityA = priorA
 //        }

@@ -10,4 +10,8 @@ public interface IWorld {
 
     public void updateWorld(IDecision decision);    // Updates the number of people who have gone to each waterhole
     public List<IDecision> getDecisions();          // Gets the list of all previous decisions
+
+    public int numA();
+    public int numB();
+    public int numC();
 }

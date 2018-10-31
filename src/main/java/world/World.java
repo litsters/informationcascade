@@ -14,10 +14,16 @@ import java.util.List;
 public class World implements IWorld {
     private List<IDecision> decisions;
     private Waterhole correct;
+    int numA;
+    int numB;
+    int numC;
 
     public World(Waterhole correct){
         this.correct = correct;
         this.decisions = new ArrayList<>();
+        numA = 0;
+        numB = 0;
+        numC = 0;
     }
 
     @Override
@@ -28,10 +34,36 @@ public class World implements IWorld {
     @Override
     public void updateWorld(IDecision decision) {
         this.decisions.add(decision);
+        switch(decision.getChoice()){
+            case A:
+                ++numA;
+                break;
+            case B:
+                ++numB;
+                break;
+            case C:
+                ++numC;
+                break;
+        }
     }
 
     @Override
     public List<IDecision> getDecisions() {
         return decisions;
+    }
+
+    @Override
+    public int numA() {
+        return numA;
+    }
+
+    @Override
+    public int numB() {
+        return numB;
+    }
+
+    @Override
+    public int numC() {
+        return numC;
     }
 }
