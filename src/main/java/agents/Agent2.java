@@ -18,7 +18,7 @@ public class Agent2 extends Agent1{
         this.signal = signal;
     }
 
-    private void updatePriors(int numA, int numB, int numC, Waterhole waterhole){
+    protected void updatePriors(int numA, int numB, int numC, Waterhole waterhole){
         int aCount =  numA + isPriorSame(waterhole);
         int aNegCount = numB + numC  + ((isPriorSame(waterhole) - 1) * -1);
         Double probA = Math.pow((getProbA() * signal), aCount) * Math.pow((1 - signal), aNegCount);
