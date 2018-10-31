@@ -18,6 +18,7 @@ import java.util.Random;
  *  2.  The number of agents to use. Must be greater than 0.
  *  3.  The accuracy group for the run. Must be "high", "mixed", or "poor".
  *  4.  The number of runs for the experiment.
+ *  5.  The signal confidence for the experiment. Must be between 0 and 1.
  */
 public class Main {
     public static final String AGENT_ONE = "one";
@@ -30,8 +31,8 @@ public class Main {
 
     public static void main(String[] args){
         // Check usage
-        if(args.length < 4){
-            System.err.println("Usage: <agent_type> <number_of_agents> <accuracy_rating> <number_of_runs>");
+        if(args.length < 5){
+            System.err.println("Usage: <agent_type> <number_of_agents> <accuracy_rating> <number_of_runs> <signal>");
             System.exit(1);
         }
 
@@ -59,7 +60,7 @@ public class Main {
             World world = new World(correct);
 
             // Generate agents
-            AgentFactory factory = new AgentFactory(world, accuracy);
+            AgentFactory factory = new AgentFactory(world, accuracy, Double.parseDouble(args[4]));
             List<IAgent> agents = new ArrayList<>();
             for(int i = 0; i < numAgents; ++i){
                 IAgent agent = factory.generateAgent(args[0]);

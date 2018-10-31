@@ -10,17 +10,40 @@ import interfaces.Waterhole;
  */
 
 public class Agent2 extends Agent1{
-    public Agent2(double accuracy, Waterhole correct){
+
+    private Double signal;
+
+    public Agent2(double accuracy, Waterhole correct, Double signal){
         super(accuracy, correct);
+        this.signal = signal;
     }
 
-    private void calculatePrior(){
-        //Bayes Rule
+    protected void updatePriors(int numA, int numB, int numC, Waterhole waterhole){
+        int aCount =  numA + isPriorSame(waterhole);
+        int aNegCount = numB + numC  + ((isPriorSame(waterhole) - 1) * -1);
+        Double probA = Math.pow((getProbA() * signal), aCount) * Math.pow((1 - signal), aNegCount);
+
+        int bCount =  numB + isPriorSame(waterhole);
+        int bNegCount = numA + numC  + ((isPriorSame(waterhole) - 1) * -1);
+        Double probB = Math.pow((getProbB() * signal), bCount) * Math.pow((1 - signal), bNegCount);
+
+        int cCount =  numC + isPriorSame(waterhole);
+        int cNegCount = numA + numB  + ((isPriorSame(waterhole) - 1) * -1);
+        Double probC = Math.pow((getProbC() * signal), cCount) * Math.pow((1 - signal), cNegCount);
+
+        setProbA(probA);
+        setProbB(probB);
+        setProbC(probC);
 
     }
 
-    private void updatePriors(int numA, int numB, int numC){
-        // TODO: Make this update priors based on how many have chosen each waterhole
+    private int isPriorSame(Waterhole waterhole){
+        if (chooseHighestPrior() == (waterhole)){
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 
     private Waterhole chooseHighestPrior(){
@@ -50,7 +73,7 @@ public class Agent2 extends Agent1{
         Waterhole initial = this.chooseHighestPrior();
 
         // Update priors
-        this.updatePriors(world.numA(), world.numB(), world.numC());
+        this.updatePriors(world.numA(), world.numB(), world.numC(), initial);
 
         // Choose highest prior after updating priors
         Waterhole second = this.chooseHighestPrior();
