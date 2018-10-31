@@ -69,8 +69,11 @@ public class Agent2 extends Agent1{
         return waterhole;
     }
 
-    // Make a decision, taking into account priors of the world`
+    // Make a decision, taking into account priors of the world
     public IDecision decide(IWorld world){
+        // If this is the first agent to decide, choose like an Agent1
+        if(world.getDecisions().size() == 0) return agent1Decide();
+
         // Make initial decision
         Waterhole initial = this.chooseHighestPrior();
 
