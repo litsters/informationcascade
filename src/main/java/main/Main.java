@@ -1,6 +1,7 @@
 package main;
 
 import experiment.Experiment;
+import experiment.Experiments;
 import interfaces.AccuracyGroup;
 import interfaces.IAgent;
 import interfaces.IDecision;
@@ -48,6 +49,8 @@ public class Main {
             System.exit(1);
         }
 
+        Experiments experiments = new Experiments();
+
         // Get number of runs
         int numRuns = Integer.parseInt(args[3]);
         for(int run = 0; run < numRuns; ++run){
@@ -88,7 +91,11 @@ public class Main {
             System.out.println("Num wrong:       " + experiment.getNumWrong());
             System.out.println("Num cascades:    " + experiment.getNumCascades());
             System.out.println("Longest cascade: " + experiment.longestCascade());
+
+            experiments.addExperiment(experiment);
         }
+
+        experiments.exportResults();
     }
 
     private static Waterhole chooseWaterhole(){

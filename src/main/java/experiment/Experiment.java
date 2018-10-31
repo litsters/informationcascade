@@ -3,8 +3,11 @@ package experiment;
 import interfaces.IDecision;
 import interfaces.IExperiment;
 import interfaces.Waterhole;
+import main.ExportUtility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,4 +67,29 @@ public class Experiment implements IExperiment {
         if(decision.isCascade()) ++numCascades;
     }
 
+    @Override
+    public int getNumDecisions() {
+        return this.decisions.size();
+    }
+
+    @Override
+    public IDecision getDecision(int index) {
+        if (index > decisions.size() - 1) return null;
+
+        return decisions.get(index);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer buf = new StringBuffer();
+        int i = 0;
+
+        buf.append("AgentId, Choice, Is Cascade?");
+
+        for (IDecision decision : this.decisions) {
+            buf.append(String.format("%d, %s, %s", i++, decision.getChoice(), decision.isCascade()));
+        }
+
+        return buf.toString();
+    }
 }
