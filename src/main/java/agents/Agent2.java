@@ -11,36 +11,8 @@ import interfaces.Waterhole;
  */
 
 public class Agent2 extends Agent1{
-
-    private double accuracy = 1.0;
-    private double probabilityA = 0.0;
-    private double probabilityB = 0.0;
-    private double probabilityC = 0.0;
-    private double priorA = 0.0;
-    private double priorB = 0.0;
-    private double priorC = 0.0;
-
     public Agent2(double accuracy, Waterhole correct){
         super(accuracy, correct);
-    }
-
-    // Returns a value between 0 and 1 representing how accurate this agent's
-    public double getAccuracy(){
-        return this.accuracy;
-    }
-
-    // probabilities are.
-    // Returns this agent's probability of waterhole A
-    public double getProbA(){
-        return probabilityA;
-    }
-    // Returns this agent's probability of waterhole B
-    public double getProbB(){
-        return probabilityB;
-    }
-    // Returns this agent's probability of waterhole C
-    public double getProbC(){
-        return probabilityC;
     }
 
     private void calculatePrior(){
@@ -53,16 +25,16 @@ public class Agent2 extends Agent1{
     }
 
     private Waterhole chooseHighestPrior(){
-        Double highestProbability = Math.max(Math.max(probabilityA,probabilityB),probabilityC);
+        Double highestProbability = Math.max(Math.max(getProbA(),getProbB()),getProbC());
         Waterhole waterhole = null;
 
-        if(Double.compare(highestProbability,probabilityA) == 0){
+        if(Double.compare(highestProbability,getProbA()) == 0){
             waterhole = Waterhole.A;
         }
-        if(Double.compare(highestProbability,probabilityB) == 0){
+        if(Double.compare(highestProbability,getProbB()) == 0){
             waterhole = Waterhole.B;
         }
-        if(Double.compare(highestProbability,probabilityC) == 0){
+        if(Double.compare(highestProbability,getProbC()) == 0){
             waterhole = Waterhole.C;
         }
 

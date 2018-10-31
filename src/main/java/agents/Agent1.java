@@ -53,14 +53,26 @@ public class Agent1 implements IAgent {
         return priorA;
     }
 
+    protected void setProbA(double probA){
+        this.priorA = probA;
+    }
+
     @Override
     public double getProbB() {
         return priorB;
     }
 
+    protected void setProbB(double probB){
+        this.priorB = probB;
+    }
+
     @Override
     public double getProbC() {
         return priorC;
+    }
+
+    protected void setProbC(double probC){
+        this.priorC = probC;
     }
 
     protected IDecision agent1Decide(){
